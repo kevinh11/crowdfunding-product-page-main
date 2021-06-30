@@ -14,6 +14,8 @@ let bookmark = document.getElementById('bookmark-button')
 let buttonarray = []
 
 let bookmarked = false;
+
+//functions
 function assignModal() {
     let array = []
 
@@ -42,15 +44,22 @@ function updateStats(event) {
             totalmoney = document.getElementById('totalmoney')
             newtotal = parseInt(totalmoney.innerHTML) + parseInt(inputs.value);
             totalmoney.innerHTML = newtotal.toString();
-        
+            document.querySelector('.popup').style.display = "none";                
+            document.querySelector('.secondpopup').style.display = "flex";
 
+        
         }
+        
+    }
+    else {
+        document.querySelector('.popup').style.display = "none";                
+        document.querySelector('.secondpopup').style.display = "flex";
     }
     totalbackers += 1
-
-    document.querySelector('.popup').style.display = "none";                
-    document.querySelector('.secondpopup').style.display = "flex";
     document.getElementById('totalbackers').innerHTML = totalbackers.toString()
+
+
+    
     
     
 }
@@ -73,6 +82,21 @@ function displayPledge() {
         }
         
 
+    }
+
+}
+
+function checkAmountLeft() {
+
+    amountleft = document.getElementsByClassName('amount-left')
+
+    for(i=0;i<amountleft.length;i++) {
+        if (parseInt(amountleft[i].innerHTML.split("")[0]) == 0) {
+            
+            amountleft[i].parentElement.parentElement.style.opacity = "0.6"
+            amountleft[i].parentElement.parentElement.style.pointerEvents = "none"
+        }
+       
     }
 
 }
@@ -107,13 +131,13 @@ checkboxs.addEventListener('click', function() {
 })
 bookmark.addEventListener('click', function() {
     if (!bookmarked)  {
-        bookmark.style.backgroundColor = "hsl(176, 50%, 47%)";
-        bookmark.children[1].innerHTML = "bookmarked"
+        bookmark.style.color = "hsl(176, 50%, 47%)";
+        bookmark.style.opacity = "0.8";
         bookmarked = true;
     }
     else {
         bookmark.style.color = "black"
-        bookmark.children[1].innerHTML = "bookmark"
+        bookmark.style.opacity = "1";
         bookmarked = false;
 
 
@@ -135,4 +159,6 @@ document.querySelector('.got-it').addEventListener('click',function() {
 
 
 window.setInterval(displayPledge,10)
+window.setInterval(checkAmountLeft,500)
 assignModal()
+
